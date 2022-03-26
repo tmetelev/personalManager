@@ -5,12 +5,16 @@ public class Task {
     private int id;
     private String name;
     private String date;
+    private String time;
+    private boolean status;
+    private String comment;
+    private String tag;
 
     public Task() {
 
     }
 
-    public Task(int id, String name, String date) {
+    public Task(int id, String name) {
         this.id = id;
         this.name = name;
         this.date = date;
