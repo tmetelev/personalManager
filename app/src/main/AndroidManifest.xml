@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myactivity">
+    package="com.example.myactivity" >
 
     <application
         android:allowBackup="true"
@@ -8,10 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Myactivity">
+        android:theme="@style/Theme.Myactivity" >
         <activity
-            android:name=".MainMenuActivity"
-            android:exported="true">
+            android:name=".activities.projects.ProjectsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mainmenu.MainMenuActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
