@@ -5,18 +5,72 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.myactivity.R;
+import com.example.myactivity.misc.JSONHelper;
+import com.example.myactivity.structures.Project;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectsActivity extends AppCompatActivity {
+
+    private Button addButton;
+    private EditText newNameText;
+    private RecyclerView recyclerView;
+    private ProjectsRecyclerAdapter adapter;
+    private List<Project> projects = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects);
 
-        RecyclerView recyclerView = findViewById(R.id.pr_recyclerView);
+        addButton = findViewById(R.id.pr_add_button);
+        newNameText = findViewById(R.id.pr_new_pr_name);
+
+        open();
+        recyclerView = findViewById(R.id.pr_recyclerView);
+        adapter = new ProjectsRecyclerAdapter(projects, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ProjectsRecyclerAdapter());
+        recyclerView.setAdapter(adapter);
+    }
+
+    public void add(View view) {
+        projects = adapter.getProjects();
+        Project project = new Project(newNameText.getText().toString());
+        projects.add(project);
+        boolean result = JSONHelper.exportProjectsToJSON(this, projects);
+        if(result){
+//            Toast.makeText(this, "Данные сохранены", Toast.LENGTH_LONG).show();
+        }
+        else{
+//            Toast.makeText(this, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
+        }
+        recyclerUpdate();
+    }
+
+    public void open() {
+        projects = JSONHelper.importProjectsFromJSON(this);
+        if(projects!=null){
+//            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
+        }
+        else{
+//            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
+            projects = new ArrayList<>();
+        }
+    }
+
+    public void del(View view) {
+
+    }
+
+    public void recyclerUpdate() {
+        adapter.updateProjects(projects);
+        adapter.notifyDataSetChanged();
     }
 }
