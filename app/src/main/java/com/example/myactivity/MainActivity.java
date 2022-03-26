@@ -1,86 +1,68 @@
 package com.example.myactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.myactivity.misc.ReadJSONTask;
-import com.example.myactivity.misc.WriteJSONTask;
-import com.example.myactivity.structures.Task;
+import com.example.myactivity.misc.JSONHelper;
+import com.example.myactivity.structures.User;
 
-import java.io.FileOutputStream;
-import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView outputText;
-    private Button button;
-    private Button button2;
-
+    private ArrayAdapter<User> adapter;
+    private EditText nameText, ageText;
+    private List<User> users;
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.outputText = (TextView)this.findViewById(R.id.textView);
-        this.button = (Button) this.findViewById(R.id.button);
-        this.button2 = (Button) this.findViewById(R.id.button2);
+        nameText = findViewById(R.id.nameText);
+        ageText = findViewById(R.id.ageText);
+        listView = findViewById(R.id.list);
+        users = new ArrayList<>();
 
-        this.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                runEx(view);
-            }
-        });
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
+        listView.setAdapter(adapter);
 
-        this.button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                runEx2(view);
-            }
-        });
+        open(listView);
     }
 
-    public void runEx(View view){
-        try {
+    public void addUser(View view){
+        String name = nameText.getText().toString();
+        int age = Integer.parseInt(ageText.getText().toString());
+        User user = new User(name, age);
+        users.add(user);
+        adapter.notifyDataSetChanged();
+    }
 
-            Task company = ReadJSONTask.readTaskJSONFile(this);
+    public void save(View view){
 
-            outputText.setText(company.toString());
-        } catch(Exception e)  {
-            outputText.setText(e.getMessage());
-            e.printStackTrace();
+        boolean result = JSONHelper.exportToJSON(this, users);
+        if(result){
+            Toast.makeText(this, "Данные сохранены", Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
         }
     }
-
-    public void runEx2(View view) {
-        try {
-            StringWriter data = new StringWriter();
-
-            Task company = new Task(33, "polsekundy", "polsekundy");
-
-
-            WriteJSONTask.writeJsonStream(data, company);
-
-            String jsonText = data.toString();
-
-            try(FileOutputStream fileOutputStream =
-                        this.openFileOutput("data.json", Context.MODE_PRIVATE)) {
-                fileOutputStream.write(jsonText.getBytes());
-
-                outputText.setText(jsonText);
-            } catch (Exception e) {
-                e.printStackTrace();
-                outputText.setText(e.getMessage());
-            }
-        } catch(Exception e)  {
-            outputText.setText(e.getMessage());
-            e.printStackTrace();
+    public void open(View view){
+        users = JSONHelper.importFromJSON(this);
+        if(users!=null){
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
+            listView.setAdapter(adapter);
+            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
         }
     }
 }
