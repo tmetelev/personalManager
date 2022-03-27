@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.myactivity.R;
 import com.example.myactivity.misc.JSONHelper;
@@ -44,7 +43,7 @@ public class ProjectsActivity extends AppCompatActivity {
         projects = adapter.getProjects();
         Project project = new Project(newNameText.getText().toString());
         projects.add(project);
-        boolean result = JSONHelper.exportProjectsToJSON(this, projects);
+        boolean result = JSONHelper.exportToJSON(this, projects);
         if(result){
 //            Toast.makeText(this, "Данные сохранены", Toast.LENGTH_LONG).show();
         }
@@ -52,10 +51,11 @@ public class ProjectsActivity extends AppCompatActivity {
 //            Toast.makeText(this, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
         }
         recyclerUpdate();
+        newNameText.setText("");
     }
 
     public void open() {
-        projects = JSONHelper.importProjectsFromJSON(this);
+        projects = JSONHelper.importFromJSON(this);
         if(projects!=null){
 //            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
         }
@@ -63,10 +63,6 @@ public class ProjectsActivity extends AppCompatActivity {
 //            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
             projects = new ArrayList<>();
         }
-    }
-
-    public void del(View view) {
-
     }
 
     public void recyclerUpdate() {

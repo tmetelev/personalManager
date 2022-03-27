@@ -1,14 +1,16 @@
 package com.example.myactivity.activities.projects;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myactivity.R;
@@ -48,15 +50,38 @@ public class ProjectsRecyclerAdapter extends RecyclerView.Adapter<ProjectsRecycl
         holder.delButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                projects.remove(position);
-                boolean result = JSONHelper.exportProjectsToJSON(context, projects);
-                if(result){
-//                    Toast.makeText(context, "Данные сохранены", Toast.LENGTH_LONG).show();
-                }
-                else{
-//                    Toast.makeText(context, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
-                }
-                notifyDataSetChanged();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Delete project?")
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                projects.remove(position);
+                                boolean result = JSONHelper.exportToJSON(context, projects);
+                                if(result){
+//                                  Toast.makeText(context, "Данные сохранены", Toast.LENGTH_LONG).show();
+                                }
+                                else{
+//                                   Toast.makeText(context, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
+                                }
+                                notifyDataSetChanged();
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+            }
+        });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }
@@ -69,11 +94,13 @@ public class ProjectsRecyclerAdapter extends RecyclerView.Adapter<ProjectsRecycl
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView nameView;
         private TextView delButton;
+        private CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             nameView = (TextView) itemView.findViewById(R.id.pr_item_name);
             delButton = (TextView) itemView.findViewById(R.id.pr_item_del_but);
+            cardView = (CardView) itemView.findViewById(R.id.pr_item_card);
         }
     }
 }
