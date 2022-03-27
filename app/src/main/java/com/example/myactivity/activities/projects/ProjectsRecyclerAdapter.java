@@ -19,6 +19,7 @@ import com.example.myactivity.activities.oneproject.OneprojectActivity;
 import com.example.myactivity.misc.JSONHelper;
 import com.example.myactivity.structures.Project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectsRecyclerAdapter extends RecyclerView.Adapter<ProjectsRecyclerAdapter.MyViewHolder> {
@@ -57,6 +58,8 @@ public class ProjectsRecyclerAdapter extends RecyclerView.Adapter<ProjectsRecycl
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                String fileName = projects.get(position).getDataFileName();
+                                context.deleteFile(fileName);
                                 projects.remove(position);
                                 boolean result = JSONHelper.exportToJSON(context, projects);
                                 if(result){

@@ -34,11 +34,11 @@ public class Task {
     }
 
     public String getDate() {
-        return date.substring(0, 1) + "." + date.substring(2, 3) + "." + date.substring(4, 5);
+        return date.substring(0, 2) + "." + date.substring(2, 4) + "." + date.substring(4, 6);
     }
 
     public String getTime() {
-        return time.substring(0, 1) + ":" + time.substring(2, 3);
+        return time.substring(0, 2) + ":" + time.substring(2, 4);
     }
 
     public boolean getStatus() {
