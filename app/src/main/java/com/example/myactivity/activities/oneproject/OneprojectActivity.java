@@ -38,7 +38,7 @@ public class OneprojectActivity extends AppCompatActivity {
 
         open();
         recyclerView = findViewById(R.id.op_recyclerView);
-        adapter = new OneprojectRecyclerAdapter(tasks, this);
+        adapter = new OneprojectRecyclerAdapter(tasks, dataFileName, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }

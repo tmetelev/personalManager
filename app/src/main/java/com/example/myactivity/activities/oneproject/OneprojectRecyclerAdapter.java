@@ -24,10 +24,12 @@ import java.util.List;
 public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRecyclerAdapter.MyViewHolder> {
     private List<Task> tasks;
     private Context context;
+    private String dataFileName;
 
-    public OneprojectRecyclerAdapter(List<Task> projects, Context context) {
+    public OneprojectRecyclerAdapter(List<Task> projects, String dataFileName, Context context) {
         this.tasks = projects;
         this.context = context;
+        this.dataFileName = dataFileName;
     }
 
     public void updateTasks(List<Task> projects) {
@@ -57,6 +59,35 @@ public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRe
         } else {
             holder.statusView.setText("Undone");
         }
+        holder.delButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Delete task?")
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                tasks.remove(position);
+                                boolean result = JSONHelper.exportToJSON(context, tasks, dataFileName);
+                                if (result) {
+//                                  Toast.makeText(context, "Данные сохранены", Toast.LENGTH_LONG).show();
+                                } else {
+//                                   Toast.makeText(context, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
+                                }
+                                notifyDataSetChanged();
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
     }
 
     @Override

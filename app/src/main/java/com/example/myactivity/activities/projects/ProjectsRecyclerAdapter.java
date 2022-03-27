@@ -80,7 +80,6 @@ public class ProjectsRecyclerAdapter extends RecyclerView.Adapter<ProjectsRecycl
                         });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
             }
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
