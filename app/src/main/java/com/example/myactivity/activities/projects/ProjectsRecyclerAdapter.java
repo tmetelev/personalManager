@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myactivity.R;
+import com.example.myactivity.activities.oneproject.OneprojectActivity;
 import com.example.myactivity.misc.JSONHelper;
 import com.example.myactivity.structures.Project;
 
@@ -81,7 +83,9 @@ public class ProjectsRecyclerAdapter extends RecyclerView.Adapter<ProjectsRecycl
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, OneprojectActivity.class);
+                intent.putExtra("file", projects.get(position).getDataFileName());
+                context.startActivity(intent);
             }
         });
     }

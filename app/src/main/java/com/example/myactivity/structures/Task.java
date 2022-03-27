@@ -14,10 +14,11 @@ public class Task {
 
     }
 
-    public Task(int id, String name) {
-        this.id = id;
+    public Task(String name, String date, String time) {
         this.name = name;
         this.date = date;
+        this.time = time;
+        this.status = false;
     }
 
     public String toString() {
@@ -30,5 +31,17 @@ public class Task {
 
     public String getName() {
         return name;
+    }
+
+    public String getDate() {
+        return date.substring(0, 1) + "." + date.substring(2, 3) + "." + date.substring(4, 5);
+    }
+
+    public String getTime() {
+        return time.substring(0, 1) + ":" + time.substring(2, 3);
+    }
+
+    public boolean getStatus() {
+        return status;
     }
 }
