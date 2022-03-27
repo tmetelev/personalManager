@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,12 +53,15 @@ public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRe
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nameView.setText(tasks.get(position).getName());
         holder.dateView.setText(tasks.get(position).getDate());
-        holder.timeView.setText(tasks.get(position).getTime());
+//        holder.timeView.setText(tasks.get(position).getTime());
+        holder.timeView.setText("");
         boolean stat = tasks.get(position).getStatus();
         if (stat) {
-            holder.statusView.setText("Done");
+            holder.statusView.setText("Y");
+            holder.statusView.setTextColor(Color.parseColor("#00FF00"));
         } else {
-            holder.statusView.setText("Undone");
+            holder.statusView.setText("X");
+            holder.statusView.setTextColor(Color.parseColor("#FF0000"));
         }
         holder.delButton.setOnClickListener(new View.OnClickListener() {
             @Override

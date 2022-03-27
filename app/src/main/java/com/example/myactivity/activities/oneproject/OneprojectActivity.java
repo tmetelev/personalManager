@@ -70,7 +70,7 @@ public class OneprojectActivity extends AppCompatActivity {
                 if (mDay.length() == 1)
                     mDay = "0" + mDay;
                 selectedDate = mDay + mMonth + mYear;
-                Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), selectedDate, Toast.LENGTH_LONG).show();
             }
         });
         builder
