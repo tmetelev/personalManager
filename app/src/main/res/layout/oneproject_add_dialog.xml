@@ -9,13 +9,13 @@
         android:id="@+id/op_add_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:ems="15"
         android:inputType="textPersonName"
         android:hint="Name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <CalendarView
         android:id="@+id/op_add_calendar"
@@ -24,6 +24,7 @@
         android:layout_margin="10dp"
         android:minDate="3/1/2022"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/op_add_name" />
+        app:layout_constraintTop_toBottomOf="@+id/op_add_name"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
