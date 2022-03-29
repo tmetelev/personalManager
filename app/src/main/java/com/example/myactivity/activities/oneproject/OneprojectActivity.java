@@ -54,13 +54,13 @@ public class OneprojectActivity extends AppCompatActivity {
     }
 
     public void add(View view) {
-        String text = newNameText.getText().toString();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater li = LayoutInflater.from(this);
         View windowView = li.inflate(R.layout.oneproject_add_dialog, null);
         builder.setView(windowView);
         newNameText = windowView.findViewById(R.id.op_add_name);
         calendarView = windowView.findViewById(R.id.op_add_calendar);
+        String text = newNameText.getText().toString();
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -81,7 +81,7 @@ public class OneprojectActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         addableTask = new Task(text, selectedDate, "0000");
-                        if (text != ""){
+                        if (text.length() > 0){
                             List<Task> tasks = JSONHelper.importFromJSON(context, dataFileName);
                             tasks.add(addableTask);
                             JSONHelper.exportToJSON(context, tasks, dataFileName);

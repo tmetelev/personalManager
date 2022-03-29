@@ -43,7 +43,7 @@ public class ProjectsActivity extends AppCompatActivity {
 
     public void add(View view) {
         String text = newNameText.getText().toString();
-        if (text != "") {
+        if (text.length() > 0) {
             projects = adapter.getProjects();
             Project project = new Project(text);
             projects.add(project);
@@ -57,7 +57,7 @@ public class ProjectsActivity extends AppCompatActivity {
             recyclerUpdate();
             newNameText.setText("");
         } else {
-            Toast.makeText(this, "Name your project!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Name your project!", Toast.LENGTH_LONG).show();
         }
     }
 
