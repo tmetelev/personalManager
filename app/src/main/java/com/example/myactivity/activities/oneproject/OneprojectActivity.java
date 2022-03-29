@@ -21,6 +21,7 @@ import com.example.myactivity.misc.JSONHelper;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class OneprojectActivity extends AppCompatActivity {
     }
 
     public void add(View view) {
+        String text = newNameText.getText().toString();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater li = LayoutInflater.from(this);
         View windowView = li.inflate(R.layout.oneproject_add_dialog, null);
@@ -78,18 +80,22 @@ public class OneprojectActivity extends AppCompatActivity {
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addableTask = new Task(newNameText.getText().toString(), selectedDate, "0000");
-                        List<Task> tasks = JSONHelper.importFromJSON(context, dataFileName);
-                        tasks.add(addableTask);
-                        boolean result = JSONHelper.exportToJSON(context, tasks, dataFileName);
-                        if(result){
-//            Toast.makeText(this, "Данные сохранены", Toast.LENGTH_LONG).show();
+                        addableTask = new Task(text, selectedDate, "0000");
+                        if (text != ""){
+                            List<Task> tasks = JSONHelper.importFromJSON(context, dataFileName);
+                            tasks.add(addableTask);
+                            JSONHelper.exportToJSON(context, tasks, dataFileName);
+                            adapter.update();
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(context, "Name your task!", Toast.LENGTH_LONG).show();
                         }
-                        else{
-//            Toast.makeText(this, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
-                        }
-                        adapter.update();
-                        adapter.notifyDataSetChanged();
+//                        if(result){
+//                            Toast.makeText(this, "Данные сохранены", Toast.LENGTH_LONG).show();
+//                        }
+//                        else{
+//                            Toast.makeText(this, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
+//                        }
                         dialogInterface.cancel();
                     }
                 })

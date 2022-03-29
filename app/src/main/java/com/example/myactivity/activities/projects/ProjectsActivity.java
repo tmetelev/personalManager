@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.myactivity.R;
 import com.example.myactivity.misc.JSONHelper;
@@ -41,18 +42,23 @@ public class ProjectsActivity extends AppCompatActivity {
     }
 
     public void add(View view) {
-        projects = adapter.getProjects();
-        Project project = new Project(newNameText.getText().toString());
-        projects.add(project);
-        boolean result = JSONHelper.exportToJSON(this, projects);
-        if(result){
+        String text = newNameText.getText().toString();
+        if (text != "") {
+            projects = adapter.getProjects();
+            Project project = new Project(text);
+            projects.add(project);
+            boolean result = JSONHelper.exportToJSON(this, projects);
+//        if(result){
 //            Toast.makeText(this, "Данные сохранены", Toast.LENGTH_LONG).show();
-        }
-        else{
+//        }
+//        else{
 //            Toast.makeText(this, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
+//        }
+            recyclerUpdate();
+            newNameText.setText("");
+        } else {
+            Toast.makeText(this, "Name your project!", Toast.LENGTH_SHORT).show();
         }
-        recyclerUpdate();
-        newNameText.setText("");
     }
 
     public void open() {
