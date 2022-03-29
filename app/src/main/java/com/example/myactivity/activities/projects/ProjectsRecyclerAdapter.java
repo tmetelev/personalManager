@@ -87,6 +87,7 @@ public class ProjectsRecyclerAdapter extends RecyclerView.Adapter<ProjectsRecycl
             public void onClick(View view) {
                 Intent intent = new Intent(context, OneprojectActivity.class);
                 intent.putExtra("file", projects.get(position).getDataFileName());
+                intent.putExtra("name", projects.get(position).getName());
                 context.startActivity(intent);
             }
         });

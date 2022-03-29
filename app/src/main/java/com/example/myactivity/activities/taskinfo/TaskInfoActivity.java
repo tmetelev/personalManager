@@ -51,6 +51,8 @@ public class TaskInfoActivity extends AppCompatActivity {
         tasks = JSONHelper.importFromJSON(this, dataFileName);
         task = tasks.get(pos);
 
+        setTitle(task.getName() + "'s task");
+
         name.setText(task.getName());
         date.setText(task.getDate());
         time.setText(task.getTime());

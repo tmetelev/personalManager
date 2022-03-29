@@ -28,6 +28,7 @@ public class ProjectsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects);
+        setTitle("Projects");
 
         addButton = findViewById(R.id.pr_add_button);
         newNameText = findViewById(R.id.pr_new_pr_name);

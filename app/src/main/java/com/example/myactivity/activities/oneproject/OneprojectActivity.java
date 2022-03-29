@@ -39,6 +39,7 @@ public class OneprojectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oneproject);
+        setTitle(getIntent().getStringExtra("name"));
 
         dataFileName = getIntent().getExtras().getString("file");
 
