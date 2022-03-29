@@ -34,8 +34,6 @@ public class TaskInfoActivity extends AppCompatActivity {
         saveButton = (Button) findViewById(R.id.ti_save_button);
         statusSwitch = (Switch) findViewById(R.id.ti_switch);
 
-        Task task = TaskInfoBuffer.tasks.get(TaskInfoBuffer.position);
-
 
 
 

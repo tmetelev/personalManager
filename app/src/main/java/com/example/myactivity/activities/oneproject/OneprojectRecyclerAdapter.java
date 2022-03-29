@@ -20,6 +20,7 @@ import com.example.myactivity.misc.JSONHelper;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRecyclerAdapter.MyViewHolder> {
@@ -27,18 +28,20 @@ public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRe
     private Context context;
     private String dataFileName;
 
-    public OneprojectRecyclerAdapter(List<Task> projects, String dataFileName, Context context) {
-        this.tasks = projects;
+    public OneprojectRecyclerAdapter(String dataFileName, Context context) {
         this.context = context;
         this.dataFileName = dataFileName;
     }
 
-    public void updateTasks(List<Task> projects) {
-        this.tasks = projects;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
+    public void update() {
+        tasks = JSONHelper.importFromJSON(context, dataFileName);
+        if(tasks !=null){
+//            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
+        }
+        else{
+//            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
+            tasks = new ArrayList<>();
+        }
     }
 
     @NonNull
@@ -53,7 +56,7 @@ public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRe
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nameView.setText(tasks.get(position).getName());
         holder.dateView.setText(tasks.get(position).getDate());
-//        holder.timeView.setText(tasks.get(position).getTime());
+//        holder.timeView.setText(tasks.get(position).getTime());       // May be added in future
         holder.timeView.setText("");
         boolean stat = tasks.get(position).getStatus();
         if (stat) {
@@ -78,6 +81,7 @@ public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRe
                                 } else {
 //                                   Toast.makeText(context, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
                                 }
+                                update();
                                 notifyDataSetChanged();
                                 dialogInterface.cancel();
                             }

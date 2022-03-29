@@ -30,7 +30,6 @@ public class OneprojectActivity extends AppCompatActivity {
     private CalendarView calendarView;
     private RecyclerView recyclerView;
     private OneprojectRecyclerAdapter adapter;
-    private List<Task> tasks = new ArrayList<>();
     private String dataFileName = "";
     private String selectedDate = "010122";
     private Task addableTask;
@@ -45,9 +44,9 @@ public class OneprojectActivity extends AppCompatActivity {
 
         addButton = findViewById(R.id.op_add_button);
 
-        open();
         recyclerView = findViewById(R.id.op_recyclerView);
-        adapter = new OneprojectRecyclerAdapter(tasks, dataFileName, this);
+        adapter = new OneprojectRecyclerAdapter(dataFileName, this);
+        adapter.update();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
@@ -79,7 +78,7 @@ public class OneprojectActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         addableTask = new Task(newNameText.getText().toString(), selectedDate, "0000");
-                        tasks = adapter.getTasks();
+                        List<Task> tasks = open();
                         tasks.add(addableTask);
                         boolean result = JSONHelper.exportToJSON(context, tasks, dataFileName);
                         if(result){
@@ -88,7 +87,8 @@ public class OneprojectActivity extends AppCompatActivity {
                         else{
 //            Toast.makeText(this, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
                         }
-                        recyclerUpdate();
+                        adapter.update();
+                        adapter.notifyDataSetChanged();
                         dialogInterface.cancel();
                     }
                 })
@@ -102,8 +102,8 @@ public class OneprojectActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void open() {
-        tasks = JSONHelper.importFromJSON(this, dataFileName);
+    public List<Task> open() {
+        List<Task> tasks = JSONHelper.importFromJSON(this, dataFileName);
         if(tasks !=null){
 //            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
         }
@@ -111,10 +111,10 @@ public class OneprojectActivity extends AppCompatActivity {
 //            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
             tasks = new ArrayList<>();
         }
+        return tasks;
     }
 
     public void recyclerUpdate() {
-        adapter.updateTasks(tasks);
         adapter.notifyDataSetChanged();
     }
 }
