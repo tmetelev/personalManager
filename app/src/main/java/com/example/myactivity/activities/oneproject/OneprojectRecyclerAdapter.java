@@ -35,13 +35,6 @@ public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRe
 
     public void update() {
         tasks = JSONHelper.importFromJSON(context, dataFileName);
-        if(tasks !=null){
-//            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
-        }
-        else{
-//            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
-            tasks = new ArrayList<>();
-        }
     }
 
     @NonNull
@@ -76,11 +69,11 @@ public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRe
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 tasks.remove(position);
                                 boolean result = JSONHelper.exportToJSON(context, tasks, dataFileName);
-                                if (result) {
-//                                  Toast.makeText(context, "Данные сохранены", Toast.LENGTH_LONG).show();
-                                } else {
-//                                   Toast.makeText(context, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
-                                }
+//                                if (result) {
+//                                    Toast.makeText(context, "Данные сохранены", Toast.LENGTH_LONG).show();
+//                                } else {
+//                                    Toast.makeText(context, "Не удалось сохранить данные", Toast.LENGTH_LONG).show();
+//                                }
                                 update();
                                 notifyDataSetChanged();
                                 dialogInterface.cancel();

@@ -78,7 +78,7 @@ public class OneprojectActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         addableTask = new Task(newNameText.getText().toString(), selectedDate, "0000");
-                        List<Task> tasks = open();
+                        List<Task> tasks = JSONHelper.importFromJSON(context, dataFileName);
                         tasks.add(addableTask);
                         boolean result = JSONHelper.exportToJSON(context, tasks, dataFileName);
                         if(result){
@@ -100,21 +100,5 @@ public class OneprojectActivity extends AppCompatActivity {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-
-    public List<Task> open() {
-        List<Task> tasks = JSONHelper.importFromJSON(this, dataFileName);
-        if(tasks !=null){
-//            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
-        }
-        else{
-//            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
-            tasks = new ArrayList<>();
-        }
-        return tasks;
-    }
-
-    public void recyclerUpdate() {
-        adapter.notifyDataSetChanged();
     }
 }
