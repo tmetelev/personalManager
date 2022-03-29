@@ -44,4 +44,16 @@ public class Task {
     public boolean getStatus() {
         return status;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

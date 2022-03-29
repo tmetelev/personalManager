@@ -101,4 +101,12 @@ public class OneprojectActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.update();
+        adapter.notifyDataSetChanged();
+        Toast.makeText(this, "resumed", Toast.LENGTH_LONG);
+    }
 }
