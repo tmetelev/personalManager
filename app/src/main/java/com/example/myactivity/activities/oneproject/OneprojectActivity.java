@@ -60,7 +60,6 @@ public class OneprojectActivity extends AppCompatActivity {
         builder.setView(windowView);
         newNameText = windowView.findViewById(R.id.op_add_name);
         calendarView = windowView.findViewById(R.id.op_add_calendar);
-        String text = newNameText.getText().toString();
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -80,6 +79,7 @@ public class OneprojectActivity extends AppCompatActivity {
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        String text = newNameText.getText().toString();
                         addableTask = new Task(text, selectedDate, "0000");
                         if (text.length() > 0){
                             List<Task> tasks = JSONHelper.importFromJSON(context, dataFileName);
