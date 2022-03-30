@@ -14,10 +14,11 @@ public class Task {
 
     }
 
-    public Task(String name, String date, String time) {
+    public Task(String name, String date, String tag) {
         this.name = name;
         this.date = date;
-        this.time = time;
+        this.time = "0000";
+        this.tag = tag;
         this.status = false;
     }
 
@@ -55,5 +56,9 @@ public class Task {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getTag() {
+        return tag;
     }
 }

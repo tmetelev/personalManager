@@ -35,12 +35,14 @@ public class OneprojectActivity extends AppCompatActivity {
     private String selectedDate = "010122";
     private Task addableTask;
     private Context context = this;
+    private String projectName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oneproject);
-        setTitle(getIntent().getStringExtra("name"));
+        projectName = getIntent().getStringExtra("name");
+        setTitle(projectName);
 
         dataFileName = getIntent().getExtras().getString("file");
 
@@ -80,7 +82,7 @@ public class OneprojectActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String text = newNameText.getText().toString();
-                        addableTask = new Task(text, selectedDate, "0000");
+                        addableTask = new Task(text, selectedDate, projectName);
                         if (text.length() > 0){
                             List<Task> tasks = JSONHelper.importFromJSON(context, dataFileName);
                             tasks.add(addableTask);
