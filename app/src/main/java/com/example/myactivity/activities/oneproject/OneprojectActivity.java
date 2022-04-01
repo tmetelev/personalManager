@@ -34,7 +34,7 @@ public class OneprojectActivity extends AppCompatActivity {
     private String dataFileName = "";
     private String selectedDate = "010122";
     private Task addableTask;
-    private Context context = this;
+    private final Context context = this;
     private String projectName;
 
     @Override

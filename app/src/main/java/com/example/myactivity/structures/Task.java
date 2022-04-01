@@ -1,5 +1,8 @@
 package com.example.myactivity.structures;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Task {
 
     private int id;
@@ -60,5 +63,11 @@ public class Task {
 
     public String getTag() {
         return tag;
+    }
+
+    public static List<Task> sortByDate(List<Task> tasks0) {
+        List<Task> res = new ArrayList<>();
+
+        return res;
     }
 }
