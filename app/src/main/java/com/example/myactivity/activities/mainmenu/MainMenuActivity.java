@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.myactivity.R;
+import com.example.myactivity.activities.calendar.CalendarActivity;
 import com.example.myactivity.activities.projects.ProjectsActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -24,6 +25,11 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void goToProjects(View view) {
         Intent intent = new Intent(this, ProjectsActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToCalendar(View view) {
+        Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
     }
 }
