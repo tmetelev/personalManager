@@ -3,10 +3,12 @@ package com.example.myactivity.activities.calendar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myactivity.R;
+import com.example.myactivity.misc.JSONHelper;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
 
@@ -27,9 +29,19 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         setTitle("Calendar");
 
+        List<Project> projects = JSONHelper.importFromJSON(this);
+        List<String> dates = getDates();
+        List<List<List<Task>>> data = new ArrayList<>();
+        for (String date : dates) {
+            List<List<Task>> buf = new ArrayList<>();
+            for (Project project : projects) {
+                buf.add(getTasksOfThisDay(project, date));
+            }
+            data.add(buf);
+        }
+
         TextView output = findViewById(R.id.textView);
 
-        output.setText(getDates().toString());
     }
 
     List<String> getDates() {
@@ -62,7 +74,17 @@ public class CalendarActivity extends AppCompatActivity {
         return res;
     }
 
-    List<Task> tasksOfThisDay(Project project, String date) {
-
+    List<Task> getTasksOfThisDay(Project project, String date) {
+        int d = Integer.parseInt(date);
+        String dataFileName = project.getDataFileName();
+        List<Task> tasks0 = JSONHelper.importFromJSON(this, dataFileName);
+        List<Task> res = new ArrayList<>();
+        for (int i = 0; i < tasks0.size(); i++) {
+            int s = tasks0.get(i).getDateInFormat();
+            if (d == s) {
+                res.add(tasks0.get(i));
+            }
+        }
+        return res;
     }
 }

@@ -41,6 +41,10 @@ public class Task {
         return date.substring(0, 2) + "." + date.substring(2, 4) + "." + date.substring(4, 6);
     }
 
+    public int getDateInFormat() {
+        return Integer.parseInt(date.substring(4, 6) + date.substring(2, 4) + date.substring(0, 2));
+    }
+
     public String getTime() {
         return time.substring(0, 2) + ":" + time.substring(2, 4);
     }
