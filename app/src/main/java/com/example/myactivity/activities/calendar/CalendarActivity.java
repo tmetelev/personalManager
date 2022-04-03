@@ -1,6 +1,8 @@
 package com.example.myactivity.activities.calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.BoringLayout;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myactivity.R;
+import com.example.myactivity.activities.oneproject.OneprojectRecyclerAdapter;
 import com.example.myactivity.misc.JSONHelper;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
@@ -31,16 +34,25 @@ public class CalendarActivity extends AppCompatActivity {
 
         List<Project> projects = JSONHelper.importFromJSON(this);
         List<String> dates = getDates();
+        List<String> trueDates = new ArrayList<>();
         List<List<List<Task>>> data = new ArrayList<>();
         for (String date : dates) {
             List<List<Task>> buf = new ArrayList<>();
             for (Project project : projects) {
-                buf.add(getTasksOfThisDay(project, date));
+                List<Task> t = getTasksOfThisDay(project, date);
+                if (t.size() != 0)
+                    buf.add(t);
             }
-            data.add(buf);
+            if (buf.size() != 0) {
+                trueDates.add(date);
+                data.add(buf);
+            }
         }
 
-        TextView output = findViewById(R.id.textView);
+        RecyclerView recyclerView = findViewById(R.id.c_recycler);
+        CalendarRecyclerAdapter adapter = new CalendarRecyclerAdapter(data, trueDates, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
     }
 
