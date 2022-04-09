@@ -43,7 +43,7 @@ public class ProjectsActivity extends AppCompatActivity {
 
     public void add(View view) {
         String text = newNameText.getText().toString();
-        if (text.length() > 0) {
+        if (text.length() > 0 && text != "projects") {
             projects = adapter.getProjects();
             Project project = new Project(text);
             projects.add(project);
