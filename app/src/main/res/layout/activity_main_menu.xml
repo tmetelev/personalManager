@@ -35,6 +35,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:text="Timetable"
+        android:onClick="goToTimetable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mm_to_calendar_button" />
