@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.myactivity.R;
 import com.example.myactivity.activities.calendar.CalendarRecyclerAdapter;
+import com.example.myactivity.misc.JSONHelper;
 import com.example.myactivity.misc.Utilities;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
@@ -28,6 +29,14 @@ public class DayActivity extends AppCompatActivity {
         setTitle("Timetable");
 
         List<Project> projects = Utilities.getProjects(this);
+
+        for (Project project : projects){
+            List<Task> tasksBuf = JSONHelper.importFromJSON(this, project.getDataFileName());
+            for (int i = 0; i < tasksBuf.size(); i++) {
+                tasksBuf.get(i).setId(i);
+            }
+            JSONHelper.exportToJSON(this, tasksBuf, project.getDataFileName());
+        }
 
         DateFormat df = new SimpleDateFormat("yyMMdd");
         String date = df.format(Calendar.getInstance().getTime());

@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,12 +45,13 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nameView.setText(tasks.get(position).getName());
         holder.timeView.setText(tasks.get(position).getTime());
+        holder.aSwitch.setChecked(tasks.get(position).getStatus());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, TaskInfoActivity.class);
                 intent.putExtra("name", tasks.get(position).getTag() + ".json");
-                intent.putExtra("pos", position);
+                intent.putExtra("pos", tasks.get(position).getId());
                 context.startActivity(intent);
             }
         });
@@ -64,12 +66,14 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
         private TextView nameView;
         private CardView cardView;
         private TextView timeView;
+        private Switch aSwitch;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             nameView = (TextView) itemView.findViewById(R.id.day_item_name);
             cardView = (CardView) itemView.findViewById(R.id.day_item_card);
             timeView = (TextView) itemView.findViewById(R.id.day_item_time);
+            aSwitch = (Switch) itemView.findViewById(R.id.day_switch);
         }
     }
 }

@@ -23,6 +23,7 @@ public class Task {
         this.time = "0000";
         this.tag = tag;
         this.status = false;
+        this.id = 0;
     }
 
     public String toString() {
@@ -69,9 +70,7 @@ public class Task {
         return tag;
     }
 
-    public static List<Task> sortByDate(List<Task> tasks0) {
-        List<Task> res = new ArrayList<>();
-
-        return res;
+    public void setId(int id) {
+        this.id = id;
     }
 }
