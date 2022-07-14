@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.myactivity.R;
 import com.example.myactivity.misc.JSONHelper;
+import com.example.myactivity.misc.Utilities;
 import com.example.myactivity.structures.Project;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class ProjectsActivity extends AppCompatActivity {
         addButton = findViewById(R.id.pr_add_button);
         newNameText = findViewById(R.id.pr_new_pr_name);
 
-        open();
+        projects = Utilities.getProjects(this);
         recyclerView = findViewById(R.id.pr_recyclerView);
         adapter = new ProjectsRecyclerAdapter(projects, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -58,17 +59,6 @@ public class ProjectsActivity extends AppCompatActivity {
             newNameText.setText("");
         } else {
             Toast.makeText(this, "Name your project!", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void open() {
-        projects = JSONHelper.importFromJSON(this);
-        if(projects!=null){
-//            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
-        }
-        else{
-//            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
-            projects = new ArrayList<>();
         }
     }
 

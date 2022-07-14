@@ -33,7 +33,7 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         setTitle("Calendar");
 
-        List<Project> projects = JSONHelper.importFromJSON(this);
+        List<Project> projects = Utilities.getProjects(this);
         List<String> dates = getDates();
         List<String> trueDates = new ArrayList<>();
         List<List<List<Task>>> data = new ArrayList<>();

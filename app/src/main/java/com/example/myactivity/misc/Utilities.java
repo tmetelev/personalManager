@@ -22,4 +22,16 @@ public class Utilities {
         }
         return res;
     }
+
+    public static List<Project> getProjects(Context context) {
+        List<Project> projects = JSONHelper.importFromJSON(context);
+        if(projects!=null){
+//            Toast.makeText(this, "Данные восстановлены", Toast.LENGTH_LONG).show();
+            return projects;
+        }
+        else{
+//            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
+            return new ArrayList<>();
+        }
+    }
 }

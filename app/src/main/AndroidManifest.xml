@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Myactivity">
         <activity
+            android:name=".activities.day.DayActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.calendar.CalendarActivity"
             android:exported="false" />
         <activity
