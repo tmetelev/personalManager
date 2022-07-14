@@ -46,6 +46,7 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
         holder.nameView.setText(tasks.get(position).getName());
         holder.timeView.setText(tasks.get(position).getTime());
         holder.aSwitch.setChecked(tasks.get(position).getStatus());
+        holder.tagView.setText(tasks.get(position).getTag());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +67,7 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
         private TextView nameView;
         private CardView cardView;
         private TextView timeView;
+        private TextView tagView;
         private Switch aSwitch;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -74,6 +76,7 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
             cardView = (CardView) itemView.findViewById(R.id.day_item_card);
             timeView = (TextView) itemView.findViewById(R.id.day_item_time);
             aSwitch = (Switch) itemView.findViewById(R.id.day_switch);
+            tagView = (TextView) itemView.findViewById(R.id.day_item_tag);
         }
     }
 }
