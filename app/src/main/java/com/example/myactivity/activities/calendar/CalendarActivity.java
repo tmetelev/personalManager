@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.myactivity.R;
 import com.example.myactivity.activities.oneproject.OneprojectRecyclerAdapter;
 import com.example.myactivity.misc.JSONHelper;
+import com.example.myactivity.misc.Utilities;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
 
@@ -39,7 +40,7 @@ public class CalendarActivity extends AppCompatActivity {
         for (String date : dates) {
             List<List<Task>> buf = new ArrayList<>();
             for (Project project : projects) {
-                List<Task> t = getTasksOfThisDay(project, date);
+                List<Task> t = Utilities.getTasksOfThisDay(this, project, date);
                 if (t.size() != 0)
                     buf.add(t);
             }
@@ -82,20 +83,6 @@ public class CalendarActivity extends AppCompatActivity {
                 sDay = "0" + sDay;
             String ad = Integer.toString(year) + sMonth + sDay;
             res.add(ad);
-        }
-        return res;
-    }
-
-    List<Task> getTasksOfThisDay(Project project, String date) {
-        int d = Integer.parseInt(date);
-        String dataFileName = project.getDataFileName();
-        List<Task> tasks0 = JSONHelper.importFromJSON(this, dataFileName);
-        List<Task> res = new ArrayList<>();
-        for (int i = 0; i < tasks0.size(); i++) {
-            int s = tasks0.get(i).getDateInFormat();
-            if (d == s) {
-                res.add(tasks0.get(i));
-            }
         }
         return res;
     }
