@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -41,6 +42,11 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
         return new MyViewHolder(view);
     }
 
+    public void update(List<Task> tasks) {
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nameView.setText(tasks.get(position).getName());
@@ -54,6 +60,16 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
                 intent.putExtra("name", tasks.get(position).getTag() + ".json");
                 intent.putExtra("pos", tasks.get(position).getId());
                 context.startActivity(intent);
+            }
+        });
+        holder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                tasks.get(position).setStatus(b);
+                Task bufTask = tasks.get(position);
+                List<Task> bufTasks = JSONHelper.importFromJSON(context, bufTask.getTag() + ".json");
+                bufTasks.set(bufTask.getId(), bufTask);
+                JSONHelper.exportToJSON(context, bufTasks, bufTask.getTag() + ".json");
             }
         });
     }

@@ -5,7 +5,10 @@ import android.content.Context;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Utilities {
@@ -33,5 +36,10 @@ public class Utilities {
 //            Toast.makeText(this, "Не удалось открыть данные", Toast.LENGTH_LONG).show();
             return new ArrayList<>();
         }
+    }
+
+    public static String getToday() {
+        DateFormat df = new SimpleDateFormat("yyMMdd");
+        return df.format(Calendar.getInstance().getTime());
     }
 }
