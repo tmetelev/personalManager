@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myactivity.R;
 import com.example.myactivity.activities.oneproject.OneprojectActivity;
-import com.example.myactivity.misc.JSONHelper;
+import com.example.myactivity.stuff.JSONHelper;
 import com.example.myactivity.structures.Project;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectsRecyclerAdapter extends RecyclerView.Adapter<ProjectsRecyclerAdapter.MyViewHolder> {

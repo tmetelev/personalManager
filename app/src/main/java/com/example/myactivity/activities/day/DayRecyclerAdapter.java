@@ -1,11 +1,8 @@
 package com.example.myactivity.activities.day;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myactivity.R;
 import com.example.myactivity.activities.taskinfo.TaskInfoActivity;
-import com.example.myactivity.misc.JSONHelper;
-import com.example.myactivity.structures.Project;
+import com.example.myactivity.stuff.JSONHelper;
 import com.example.myactivity.structures.Task;
 
 import java.util.List;

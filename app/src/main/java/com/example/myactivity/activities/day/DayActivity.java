@@ -5,19 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.myactivity.R;
-import com.example.myactivity.activities.calendar.CalendarRecyclerAdapter;
-import com.example.myactivity.misc.JSONHelper;
-import com.example.myactivity.misc.Utilities;
+import com.example.myactivity.stuff.JSONHelper;
+import com.example.myactivity.stuff.Utils;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class DayActivity extends AppCompatActivity {
@@ -27,11 +22,11 @@ public class DayActivity extends AppCompatActivity {
     private DayRecyclerAdapter adapter;
 
     protected void setTaskOfToday() {
-        String date = Utilities.getToday();
+        String date = Utils.getToday();
 
         tasks = new ArrayList<>();
         for (Project project : projects) {
-            List<Task> t = Utilities.getTasksOfThisDay(this, project, date);
+            List<Task> t = Utils.getTasksOfThisDay(this, project, date);
             if (t.size() != 0)
                 tasks.addAll(t);
         }
@@ -43,7 +38,7 @@ public class DayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_day);
         setTitle("Timetable");
 
-        projects = Utilities.getProjects(this);
+        projects = Utils.getProjects(this);
 
         for (Project project : projects){
             List<Task> tasksBuf = JSONHelper.importFromJSON(this, project.getDataFileName());

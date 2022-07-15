@@ -5,14 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.text.BoringLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myactivity.R;
-import com.example.myactivity.activities.oneproject.OneprojectRecyclerAdapter;
-import com.example.myactivity.misc.JSONHelper;
-import com.example.myactivity.misc.Utilities;
+import com.example.myactivity.stuff.Utils;
 import com.example.myactivity.structures.Project;
 import com.example.myactivity.structures.Task;
 
@@ -33,14 +28,14 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         setTitle("Calendar");
 
-        List<Project> projects = Utilities.getProjects(this);
+        List<Project> projects = Utils.getProjects(this);
         List<String> dates = getDates();
         List<String> trueDates = new ArrayList<>();
         List<List<List<Task>>> data = new ArrayList<>();
         for (String date : dates) {
             List<List<Task>> buf = new ArrayList<>();
             for (Project project : projects) {
-                List<Task> t = Utilities.getTasksOfThisDay(this, project, date);
+                List<Task> t = Utils.getTasksOfThisDay(this, project, date);
                 if (t.size() != 0)
                     buf.add(t);
             }

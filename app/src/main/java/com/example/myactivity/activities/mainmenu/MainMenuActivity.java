@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.myactivity.R;
 import com.example.myactivity.activities.calendar.CalendarActivity;
 import com.example.myactivity.activities.day.DayActivity;
 import com.example.myactivity.activities.projects.ProjectsActivity;
-import com.example.myactivity.misc.Utilities;
+import com.example.myactivity.stuff.Utils;
 
 public class MainMenuActivity extends AppCompatActivity {
     private boolean firstEntranceOfToday = false;
@@ -22,14 +21,14 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        int todayDate = Integer.parseInt(Utilities.getToday());
-        int lastDate = Integer.parseInt(Utilities.getLastEntranceDate(this));
+        int todayDate = Integer.parseInt(Utils.getToday());
+        int lastDate = Integer.parseInt(Utils.getLastEntranceDate(this));
 
         if (todayDate != lastDate) {
             Toast.makeText(this, "base", Toast.LENGTH_SHORT).show();
             firstEntranceOfToday = true;
         }
-        Utilities.updateLastEntranceDate(this);
+        Utils.updateLastEntranceDate(this);
 
     }
 

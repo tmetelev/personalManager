@@ -1,4 +1,4 @@
-package com.example.myactivity.misc;
+package com.example.myactivity.stuff;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Utilities {
+public class Utils {
     public static List<Task> getTasksOfThisDay(Context context, Project project, String date) {
         int d = Integer.parseInt(date);
         String dataFileName = project.getDataFileName();

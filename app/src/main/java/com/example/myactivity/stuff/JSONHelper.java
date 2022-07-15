@@ -1,4 +1,4 @@
-package com.example.myactivity.misc;
+package com.example.myactivity.stuff;
 
 import android.content.Context;
 

@@ -16,13 +16,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myactivity.R;
-import com.example.myactivity.activities.projects.ProjectsRecyclerAdapter;
-import com.example.myactivity.misc.JSONHelper;
-import com.example.myactivity.structures.Project;
+import com.example.myactivity.stuff.JSONHelper;
 import com.example.myactivity.structures.Task;
 
-import java.time.Clock;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OneprojectActivity extends AppCompatActivity {

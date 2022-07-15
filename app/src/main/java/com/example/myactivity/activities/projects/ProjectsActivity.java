@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myactivity.R;
-import com.example.myactivity.misc.JSONHelper;
-import com.example.myactivity.misc.Utilities;
+import com.example.myactivity.stuff.JSONHelper;
+import com.example.myactivity.stuff.Utils;
 import com.example.myactivity.structures.Project;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ProjectsActivity extends AppCompatActivity {
         addButton = findViewById(R.id.pr_add_button);
         newNameText = findViewById(R.id.pr_new_pr_name);
 
-        projects = Utilities.getProjects(this);
+        projects = Utils.getProjects(this);
         recyclerView = findViewById(R.id.pr_recyclerView);
         adapter = new ProjectsRecyclerAdapter(projects, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myactivity.R;
-import com.example.myactivity.misc.JSONHelper;
+import com.example.myactivity.stuff.JSONHelper;
 import com.example.myactivity.structures.Task;
 
 import java.util.List;
