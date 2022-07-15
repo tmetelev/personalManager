@@ -15,6 +15,7 @@ import com.example.myactivity.activities.projects.ProjectsActivity;
 import com.example.myactivity.misc.Utilities;
 
 public class MainMenuActivity extends AppCompatActivity {
+    private boolean firstEntranceOfToday = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         if (todayDate != lastDate) {
             Toast.makeText(this, "base", Toast.LENGTH_SHORT).show();
+            firstEntranceOfToday = true;
         }
         Utilities.updateLastEntranceDate(this);
 
