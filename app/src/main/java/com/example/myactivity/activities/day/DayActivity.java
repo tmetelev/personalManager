@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.myactivity.R;
+import com.example.myactivity.activities.settime.SetTimeRecyclerAdapter;
 import com.example.myactivity.stuff.JSONHelper;
 import com.example.myactivity.stuff.Utils;
 import com.example.myactivity.structures.Project;
@@ -19,7 +20,7 @@ public class DayActivity extends AppCompatActivity {
     private List<Project> projects;
     private List<Task> tasks;
     private RecyclerView recyclerView;
-    private DayRecyclerAdapter adapter;
+    private SetTimeRecyclerAdapter adapter;
 
     protected void setTaskOfToday() {
         String date = Utils.getToday();
@@ -52,7 +53,7 @@ public class DayActivity extends AppCompatActivity {
 
 //        Toast.makeText(this, Integer.toString(tasks.size()), Toast.LENGTH_SHORT).show();
         recyclerView = findViewById(R.id.day_recyclerView);
-        adapter = new DayRecyclerAdapter( this, tasks);
+        adapter = new SetTimeRecyclerAdapter(this, tasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }

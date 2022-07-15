@@ -44,7 +44,7 @@ public class Utils {
     }
 
     public static String getLastEntranceDate(Context context) {
-        return JSONHelper.importFromJSON(context, 0).get(0);
+        return "220714";//JSONHelper.importFromJSON(context, 0).get(0);
     }
 
     public static void updateLastEntranceDate(Context context) {

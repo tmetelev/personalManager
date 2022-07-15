@@ -11,6 +11,7 @@ import com.example.myactivity.R;
 import com.example.myactivity.activities.calendar.CalendarActivity;
 import com.example.myactivity.activities.day.DayActivity;
 import com.example.myactivity.activities.projects.ProjectsActivity;
+import com.example.myactivity.activities.settime.SetTimeActivity;
 import com.example.myactivity.stuff.Utils;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -43,7 +44,12 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     public void goToTimetable(View view) {
-        Intent intent = new Intent(this, DayActivity.class);
-        startActivity(intent);
+        if (firstEntranceOfToday) {
+            Intent intent = new Intent(this, SetTimeActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, DayActivity.class);
+            startActivity(intent);
+        }
     }
 }
