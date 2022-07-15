@@ -1,14 +1,19 @@
 package com.example.myactivity.activities.settime;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -38,23 +43,60 @@ public class SetTimeRecyclerAdapter extends RecyclerView.Adapter<SetTimeRecycler
         return new MyViewHolder(view);
     }
 
-    public void update(List<Task> tasks) {
-        this.tasks = tasks;
-        notifyDataSetChanged();
+    public List<Task> getTasks() {
+        return tasks;
     }
+
+    private TimePicker timePicker;
+    private int hour = 12, minute = 0;
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nameView.setText(tasks.get(position).getName());
         holder.timeView.setText(tasks.get(position).getTime());
         holder.tagView.setText(tasks.get(position).getTag());
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, TaskInfoActivity.class);
-                intent.putExtra("name", tasks.get(position).getTag() + ".json");
-                intent.putExtra("pos", tasks.get(position).getId());
-                context.startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater li = LayoutInflater.from(context);
+                View windowView = li.inflate(R.layout.set_time_dialog, null);
+                builder.setView(windowView);
+                timePicker = windowView.findViewById(R.id.set_time_timePicker);
+                timePicker.setHour(12);
+                timePicker.setMinute(0);
+                timePicker.setIs24HourView(true);
+                builder
+                        .setTitle("Set task time")
+                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                hour = timePicker.getHour();
+                                minute = timePicker.getMinute();
+                                String hourString = Integer.toString(hour);
+                                if (hourString.length() == 1) {
+                                    hourString = "0" + hourString;
+                                }
+                                String minuteString = Integer.toString(minute);
+                                if (minuteString.length() == 1) {
+                                    minuteString = "0" + minuteString;
+                                }
+                                Task bufTask = tasks.get(position);
+                                bufTask.setTime(hourString + minuteString);
+                                tasks.set(position,bufTask);
+                                notifyDataSetChanged();
+                                dialogInterface.cancel();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }

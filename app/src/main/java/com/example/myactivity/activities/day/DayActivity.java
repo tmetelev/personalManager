@@ -20,7 +20,7 @@ public class DayActivity extends AppCompatActivity {
     private List<Project> projects;
     private List<Task> tasks;
     private RecyclerView recyclerView;
-    private SetTimeRecyclerAdapter adapter;
+    private DayRecyclerAdapter adapter;
 
     protected void setTaskOfToday() {
         String date = Utils.getToday();
@@ -53,7 +53,7 @@ public class DayActivity extends AppCompatActivity {
 
 //        Toast.makeText(this, Integer.toString(tasks.size()), Toast.LENGTH_SHORT).show();
         recyclerView = findViewById(R.id.day_recyclerView);
-        adapter = new SetTimeRecyclerAdapter(this, tasks);
+        adapter = new DayRecyclerAdapter(this, tasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
