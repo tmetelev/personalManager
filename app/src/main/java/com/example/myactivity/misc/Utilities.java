@@ -42,4 +42,12 @@ public class Utilities {
         DateFormat df = new SimpleDateFormat("yyMMdd");
         return df.format(Calendar.getInstance().getTime());
     }
+
+    public static String getLastEntranceDate(Context context) {
+        return JSONHelper.importFromJSON(context, 0).get(0);
+    }
+
+    public static void updateLastEntranceDate(Context context) {
+        JSONHelper.exportToJSON(context, getToday());
+    }
 }

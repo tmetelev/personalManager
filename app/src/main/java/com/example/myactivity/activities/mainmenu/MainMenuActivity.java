@@ -6,22 +6,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.myactivity.R;
 import com.example.myactivity.activities.calendar.CalendarActivity;
 import com.example.myactivity.activities.day.DayActivity;
 import com.example.myactivity.activities.projects.ProjectsActivity;
+import com.example.myactivity.misc.Utilities;
 
 public class MainMenuActivity extends AppCompatActivity {
-
-    private Button toProjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        toProjects = (Button) findViewById(R.id.mm_to_projects_button);
+        int todayDate = Integer.parseInt(Utilities.getToday());
+        int lastDate = Integer.parseInt(Utilities.getLastEntranceDate(this));
+
+        if (todayDate != lastDate) {
+            Toast.makeText(this, "base", Toast.LENGTH_SHORT).show();
+        }
+        Utilities.updateLastEntranceDate(this);
+
     }
 
     public void goToProjects(View view) {
