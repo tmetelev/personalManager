@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -39,8 +40,10 @@ public class TaskInfoActivity extends AppCompatActivity {
     private Button saveButton;
     private Context context = this;
     private TimePicker timePicker;
+    private CalendarView calendarView;
 
     private int hour = 12, minute = 0;
+    private String selectedDate = "010122";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +114,48 @@ public class TaskInfoActivity extends AppCompatActivity {
                                 task.setTime(hourString + minuteString);
                                 dialogInterface.cancel();
                                 time.setText(task.getTime());
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater li = LayoutInflater.from(context);
+                View windowView = li.inflate(R.layout.set_date_dialog, null);
+                builder.setView(windowView);
+                calendarView = windowView.findViewById(R.id.set_date_view);
+                calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                    @Override
+                    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                        String mYear = Integer.toString(year).substring(2, 4);;
+                        String mMonth = Integer.toString(month + 1);
+                        if (mMonth.length() == 1)
+                            mMonth = "0" + mMonth;
+                        String mDay = Integer.toString(dayOfMonth);
+                        if (mDay.length() == 1)
+                            mDay = "0" + mDay;
+                        selectedDate = mDay + mMonth + mYear;
+                    }
+                });
+                builder
+                        .setTitle("Set time")
+                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                task.setDate(selectedDate);
+                                date.setText(task.getDate());
+                                dialogInterface.cancel();
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

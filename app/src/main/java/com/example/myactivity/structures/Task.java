@@ -77,4 +77,8 @@ public class Task {
     public void setTime(String time) {
         this.time = time;
     }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
