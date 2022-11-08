@@ -12,6 +12,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Utils {
+    public static boolean ARE_TIME_SET = false;
+
     public static List<Task> getTasksOfThisDay(Context context, Project project, String date) {
         int d = Integer.parseInt(date);
         String dataFileName = project.getDataFileName();
@@ -44,7 +46,7 @@ public class Utils {
     }
 
     public static String getLastEntranceDate(Context context) {
-        return "220714";//JSONHelper.importFromJSON(context, 0).get(0);
+        return JSONHelper.importFromJSON(context, 0).get(0);
     }
 
     public static void updateLastEntranceDate(Context context) {

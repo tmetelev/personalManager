@@ -26,7 +26,7 @@ public class MainMenuActivity extends AppCompatActivity {
         int lastDate = Integer.parseInt(Utils.getLastEntranceDate(this));
 
         if (todayDate != lastDate) {
-            Toast.makeText(this, "base", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "base", Toast.LENGTH_SHORT).show();
             firstEntranceOfToday = true;
         }
         Utils.updateLastEntranceDate(this);
@@ -44,7 +44,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     public void goToTimetable(View view) {
-        if (firstEntranceOfToday) {
+        if (firstEntranceOfToday && !Utils.ARE_TIME_SET) {
             Intent intent = new Intent(this, SetTimeActivity.class);
             startActivity(intent);
         } else {

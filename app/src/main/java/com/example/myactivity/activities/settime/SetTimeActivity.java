@@ -76,6 +76,7 @@ public class SetTimeActivity extends AppCompatActivity {
                     bufTask.set(task.getId(), task);
                     JSONHelper.exportToJSON(context, bufTask, fileName);
                 }
+                Utils.ARE_TIME_SET = true;
                 Intent intent = new Intent(context, DayActivity.class);
                 startActivity(intent);
                 finish();
