@@ -2,15 +2,19 @@ package com.example.myactivity.activities.taskinfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.myactivity.R;
@@ -32,6 +36,9 @@ public class TaskInfoActivity extends AppCompatActivity {
     private EditText comment;
     private Button saveButton;
     private Context context = this;
+    private TimePicker timePicker;
+
+    private int hour = 12, minute = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +80,48 @@ public class TaskInfoActivity extends AppCompatActivity {
                 tasks.set(pos, task);
                 boolean res = JSONHelper.exportToJSON(context, tasks, dataFileName);
                 Toast.makeText(context, "Saved", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater li = LayoutInflater.from(context);
+                View windowView = li.inflate(R.layout.set_time_dialog, null);
+                builder.setView(windowView);
+                timePicker = windowView.findViewById(R.id.set_time_timePicker);
+                timePicker.setHour(12);
+                timePicker.setMinute(0);
+                timePicker.setIs24HourView(true);
+                builder
+                        .setTitle("Set task time")
+                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                hour = timePicker.getHour();
+                                minute = timePicker.getMinute();
+                                String hourString = Integer.toString(hour);
+                                if (hourString.length() == 1) {
+                                    hourString = "0" + hourString;
+                                }
+                                String minuteString = Integer.toString(minute);
+                                if (minuteString.length() == 1) {
+                                    minuteString = "0" + minuteString;
+                                }
+                                task.setTime(hourString + minuteString);
+                                dialogInterface.cancel();
+                                time.setText(task.getTime());
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }
