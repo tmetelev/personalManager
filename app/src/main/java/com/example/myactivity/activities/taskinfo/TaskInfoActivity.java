@@ -1,5 +1,6 @@
 package com.example.myactivity.activities.taskinfo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -77,9 +79,6 @@ public class TaskInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 task.setComment(comment.getText().toString());
-                tasks.set(pos, task);
-                boolean res = JSONHelper.exportToJSON(context, tasks, dataFileName);
-                Toast.makeText(context, "Saved", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -124,5 +123,13 @@ public class TaskInfoActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        tasks.set(pos, task);
+        boolean res = JSONHelper.exportToJSON(context, tasks, dataFileName);
+        Toast.makeText(context, "Saved", Toast.LENGTH_LONG);
     }
 }
