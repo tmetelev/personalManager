@@ -21,6 +21,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private int[] valueOfDays = {0, 30, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private static int VALUE_OF_SHOWING_DAYS = 31;
+    private static int VALUE_OF_PREVIOUS_DAYS = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +57,16 @@ public class CalendarActivity extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("yyMMdd");
         String today = df.format(Calendar.getInstance().getTime());
         List<String> res = new ArrayList<>();
-        res.add(today);
+//        res.add(today);
         int day = Integer.parseInt(today.substring(4, 6));
         int month = Integer.parseInt(today.substring(2, 4));
         int year = Integer.parseInt(today.substring(0, 2));
+
+        day -= VALUE_OF_PREVIOUS_DAYS;
+        if (day < 1) {
+            month--;
+            day += valueOfDays[month];
+        }
         for (int i = 0; i <= VALUE_OF_SHOWING_DAYS - 1; i++) {
             day++;
             if (day > valueOfDays[month]) {
