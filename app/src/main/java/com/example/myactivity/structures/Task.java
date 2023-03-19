@@ -50,6 +50,10 @@ public class Task {
         return time.substring(0, 2) + ":" + time.substring(2, 4);
     }
 
+    public int getIntTime() {
+        return Integer.parseInt(this.time);
+    }
+
     public boolean getStatus() {
         return status;
     }

@@ -51,6 +51,7 @@ public class DayActivity extends AppCompatActivity {
         }
 
         setTaskOfToday();
+        tasks = Utils.sortByDate(tasks);
 
 //        Toast.makeText(this, Integer.toString(tasks.size()), Toast.LENGTH_SHORT).show();
         recyclerView = findViewById(R.id.day_recyclerView);
@@ -63,6 +64,7 @@ public class DayActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setTaskOfToday();
+        tasks = Utils.sortByDate(tasks);
         adapter.update(tasks);
     }
 }
