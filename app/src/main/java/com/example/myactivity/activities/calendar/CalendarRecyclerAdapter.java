@@ -2,6 +2,7 @@ package com.example.myactivity.activities.calendar;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,12 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
         for (List<Task> dat : dayData) {
             res += dat.get(0).getTag() + "\n";
             for (Task task : dat) {
-                res += "  - " + task.getName() + "\n";
+                boolean stat = task.getStatus();
+                String status = "x";
+                if (stat) {
+                    status = "o";
+                }
+                res += "  " + status + " " + task.getName() + "\n";
             }
         }
         holder.dataView.setText(res);
