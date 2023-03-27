@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.myactivity.R;
 import com.example.myactivity.stuff.Utils;
@@ -23,11 +24,16 @@ public class CalendarActivity extends AppCompatActivity {
     private static int VALUE_OF_SHOWING_DAYS = 31;
     private static int VALUE_OF_PREVIOUS_DAYS = 7;
 
+    private String today = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         setTitle("Calendar");
+
+        DateFormat df = new SimpleDateFormat("yyMMdd");
+        today = df.format(Calendar.getInstance().getTime());
 
         List<Project> projects = Utils.getProjects(this);
         List<String> dates = getDates();
@@ -39,6 +45,9 @@ public class CalendarActivity extends AppCompatActivity {
                 List<Task> t = Utils.getTasksOfThisDay(this, project, date);
                 if (t.size() != 0)
                     buf.add(t);
+            }
+            if (date.equals(today)) {
+                date += "-";
             }
             if (buf.size() != 0) {
                 trueDates.add(date);
@@ -54,8 +63,6 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     List<String> getDates() {
-        DateFormat df = new SimpleDateFormat("yyMMdd");
-        String today = df.format(Calendar.getInstance().getTime());
         List<String> res = new ArrayList<>();
 //        res.add(today);
         int day = Integer.parseInt(today.substring(4, 6));

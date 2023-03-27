@@ -37,7 +37,13 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.dateView.setText(dateToFormat(dates.get(position)));
+        String date = dates.get(position);
+        if (date.length() > 6) {
+            date = dateToFormat(date) + " - Today";
+        } else {
+            date = dateToFormat(date);
+        }
+        holder.dateView.setText(date);
         holder.dateView.setTextSize(22);
         String res = "";
         List<List<Task>> dayData = data.get(position);
@@ -45,7 +51,7 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
             res += dat.get(0).getTag() + "\n";
             for (Task task : dat) {
                 boolean stat = task.getStatus();
-                String status = "x";
+                String status = "-";
                 if (stat) {
                     status = "o";
                 }
