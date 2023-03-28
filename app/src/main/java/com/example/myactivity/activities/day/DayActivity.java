@@ -22,9 +22,10 @@ public class DayActivity extends AppCompatActivity {
     private List<Task> tasks;
     private RecyclerView recyclerView;
     private DayRecyclerAdapter adapter;
+    private String date;
 
     protected void setTaskOfToday() {
-        String date = Utils.getToday();
+//        String date = Utils.getToday();
 
         tasks = new ArrayList<>();
         for (Project project : projects) {
@@ -38,7 +39,9 @@ public class DayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
+        date = getIntent().getStringExtra("date");
         setTitle("Timetable");
+
 
         projects = Utils.getProjects(this);
 

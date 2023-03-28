@@ -2,6 +2,7 @@ package com.example.myactivity.activities.calendar;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myactivity.R;
+import com.example.myactivity.activities.day.DayActivity;
+import com.example.myactivity.activities.taskinfo.TaskInfoActivity;
 import com.example.myactivity.structures.Task;
 
 import java.util.List;
@@ -38,6 +41,7 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         String date = dates.get(position);
+        String finalDate = date;
         if (date.length() > 6) {
             date = dateToFormat(date) + " - Today";
         } else {
@@ -59,6 +63,15 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
             }
         }
         holder.dataView.setText(res);
+
+        holder.dateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DayActivity.class);
+                intent.putExtra("date", finalDate);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

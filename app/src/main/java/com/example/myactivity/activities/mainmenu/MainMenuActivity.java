@@ -49,6 +49,7 @@ public class MainMenuActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, DayActivity.class);
+            intent.putExtra("date", Utils.getToday());
             startActivity(intent);
         }
     }
