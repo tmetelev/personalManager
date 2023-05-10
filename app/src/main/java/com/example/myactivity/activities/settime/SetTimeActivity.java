@@ -78,6 +78,7 @@ public class SetTimeActivity extends AppCompatActivity {
                 }
                 Utils.ARE_TIME_SET = true;
                 Intent intent = new Intent(context, DayActivity.class);
+                intent.putExtra("date", Utils.getToday());
                 startActivity(intent);
                 finish();
             }
