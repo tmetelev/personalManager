@@ -44,6 +44,7 @@ public class OneprojectActivity extends AppCompatActivity {
         dataFileName = getIntent().getExtras().getString("file");
 
         addButton = findViewById(R.id.op_add_button);
+        clearButton = findViewById(R.id.op_clear_button);
 
         recyclerView = findViewById(R.id.op_recyclerView);
         adapter = new OneprojectRecyclerAdapter(dataFileName, this);
@@ -109,7 +110,18 @@ public class OneprojectActivity extends AppCompatActivity {
     }
 
     public void clear(View view) {
-
+        List<Task> tasks = JSONHelper.importFromJSON(context, dataFileName);
+        int i = 0;
+        while (i < tasks.size()) {
+            if (tasks.get(i).getStatus()) {
+                tasks.remove(i);
+            } else {
+                i++;
+            }
+        }
+        JSONHelper.exportToJSON(context, tasks, dataFileName);
+        adapter.update();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
