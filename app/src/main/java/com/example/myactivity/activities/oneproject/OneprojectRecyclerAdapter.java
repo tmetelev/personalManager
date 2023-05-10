@@ -19,6 +19,7 @@ import com.example.myactivity.R;
 import com.example.myactivity.activities.taskinfo.TaskInfoActivity;
 import com.example.myactivity.stuff.JSONHelper;
 import com.example.myactivity.structures.Task;
+import com.example.myactivity.stuff.Utils;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class OneprojectRecyclerAdapter extends RecyclerView.Adapter<OneprojectRe
 
     public void update() {
         tasks = JSONHelper.importFromJSON(context, dataFileName);
+        tasks = Utils.sortByDate(tasks);
     }
 
     @NonNull

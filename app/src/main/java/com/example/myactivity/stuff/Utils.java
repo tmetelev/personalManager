@@ -53,7 +53,7 @@ public class Utils {
         JSONHelper.exportToJSON(context, getToday());
     }
 
-    public static List<Task> sortByDate(List<Task> tasks) {
+    public static List<Task> sortByTime(List<Task> tasks) {
         List<Task> tasks0 = tasks;
         List<Task> res = new ArrayList<>();
         for (int i = tasks0.size() - 1; i >= 0; i--) {
@@ -63,6 +63,24 @@ public class Utils {
                 if (tasks0.get(k).getIntTime() < min) {
                     mini = k;
                     min = tasks0.get(k).getIntTime();
+                }
+            }
+            res.add(tasks0.get(mini));
+            tasks0.remove(mini);
+        }
+        return res;
+    }
+
+    public static List<Task> sortByDate(List<Task> tasks) {
+        List<Task> tasks0 = tasks;
+        List<Task> res = new ArrayList<>();
+        for (int i = tasks0.size() - 1; i >= 0; i--) {
+            int mini = 0;
+            int min = 300000;
+            for (int k = 0; k <= i; k++) {
+                if (tasks0.get(k).getDateInFormat() < min) {
+                    mini = k;
+                    min = tasks0.get(k).getDateInFormat();
                 }
             }
             res.add(tasks0.get(mini));

@@ -5,10 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.myactivity.R;
-import com.example.myactivity.activities.settime.SetTimeRecyclerAdapter;
 import com.example.myactivity.stuff.JSONHelper;
 import com.example.myactivity.stuff.Utils;
 import com.example.myactivity.structures.Project;
@@ -54,7 +52,6 @@ public class DayActivity extends AppCompatActivity {
         }
 
         setTaskOfToday();
-        tasks = Utils.sortByDate(tasks);
 
 //        Toast.makeText(this, Integer.toString(tasks.size()), Toast.LENGTH_SHORT).show();
         recyclerView = findViewById(R.id.day_recyclerView);
@@ -67,7 +64,7 @@ public class DayActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setTaskOfToday();
-        tasks = Utils.sortByDate(tasks);
+        tasks = Utils.sortByTime(tasks);
         adapter.update(tasks);
     }
 }
