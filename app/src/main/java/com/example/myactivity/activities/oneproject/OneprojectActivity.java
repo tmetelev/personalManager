@@ -23,6 +23,7 @@ import java.util.List;
 
 public class OneprojectActivity extends AppCompatActivity {
     private Button addButton;
+    private Button clearButton;
     private EditText newNameText;
     private CalendarView calendarView;
     private RecyclerView recyclerView;
@@ -105,6 +106,10 @@ public class OneprojectActivity extends AppCompatActivity {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void clear(View view) {
+
     }
 
     @Override
