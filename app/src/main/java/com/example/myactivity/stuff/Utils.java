@@ -45,6 +45,11 @@ public class Utils {
         return df.format(Calendar.getInstance().getTime());
     }
 
+    public static String getTodayInFormat() {
+        DateFormat df = new SimpleDateFormat("ddMMyy");
+        return df.format(Calendar.getInstance().getTime());
+    }
+
     public static String getLastEntranceDate(Context context) {
         return JSONHelper.importFromJSON(context, 0).get(0);
     }

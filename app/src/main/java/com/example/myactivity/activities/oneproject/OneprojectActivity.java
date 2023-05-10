@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.myactivity.R;
 import com.example.myactivity.stuff.JSONHelper;
 import com.example.myactivity.structures.Task;
+import com.example.myactivity.stuff.Utils;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class OneprojectActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private OneprojectRecyclerAdapter adapter;
     private String dataFileName = "";
-    private String selectedDate = "010122";
+    private String selectedDate = Utils.getTodayInFormat();
     private Task addableTask;
     private final Context context = this;
     private String projectName;
